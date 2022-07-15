@@ -1,0 +1,65 @@
+{% extends "team_members/base.html" %} 
+
+{% block content %} 
+
+<div>
+    <div class="d-flex justify-content-end"> 
+        <a href="{% url 'team_insert' %}" class="btn btn-outline-primary">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+    <hr>
+    {% for teammember in team_list %}
+    <div class ="row">
+        <div class ="col-md-10">
+            <a href="{% url 'team_update' teammember.id %}" style="text-decoration:none; color:black"> 
+                <strong> {{teammember.firstname}} {{teammember.lastname}} </strong>
+            </a>
+            <br />
+            {{teammember.mobile}}
+            <br />
+            {{teammember.email}}
+        </div>
+        <div class ="col-md-2">
+            <form action ="{% url 'team_delete' teammember.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type ="submit" class="btn btn-outline-danger btn-lg btn-block align-middle"> Delete </button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% endfor %} 
+</div>
+
+{% endblock content %}
+
+
+{% comment %} <table class ="table table-borderless">
+    <thead>
+        <div class="d-flex justify-content-end"> 
+            <a href="{% url 'team_insert' %}" class="btn btn-outline-primary">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+    </thead>
+    <hr>
+    {% for teammember in team_list %}
+    <tbody>
+        <td class="my-4 border-bottom">
+        <a href="{% url 'team_update' teammember.id %}" style="text-decoration:none; color:black"> 
+            <strong> {{teammember.firstname}} {{teammember.lastname}} </strong>
+        </a>
+        <br />
+        {{teammember.mobile}}
+        <br />
+        {{teammember.email}}
+        </td>
+        <form action ="{% url 'team_delete' teammember.id %}" method="post">
+            {% csrf_token %}
+            {{ teammember.id }}
+            <button type ="submit" class="btn btn-outline-danger btn-lg btn-block"> Delete </button>
+        </form>
+    </tbody>
+    {% endfor %} 
+</table> {% endcomment %}
+
